@@ -5,14 +5,19 @@ import androidx.recyclerview.widget.RecyclerView
 
 abstract class EndlessRecyclerOnScrollListener : RecyclerView.OnScrollListener() {
     private var isSlidingUpward = false
+
     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
         super.onScrollStateChanged(recyclerView, newState)
+
         val manager = recyclerView.layoutManager as LinearLayoutManager?
+
         if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-            val lastItemPosition = manager!!.findLastCompletelyVisibleItemPosition()
-            val itemCount = manager.itemCount
-            if (lastItemPosition == itemCount - 1 && isSlidingUpward) {
-                onLoadMore()
+            manager?.let {
+                val lastItemPosition = it.findLastCompletelyVisibleItemPosition()
+                val itemCount = it.itemCount
+                if (lastItemPosition == itemCount - 1 && isSlidingUpward) {
+                    onLoadMore()
+                }
             }
         }
     }

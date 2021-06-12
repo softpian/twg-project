@@ -8,17 +8,22 @@ import nz.co.warehouseandroidtest.data.ProductWithoutPrice
 import java.util.*
 
 class SearchResultAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
     private val data: MutableList<ProductWithoutPrice> = ArrayList()
+
     private val TYPE_ITEM = 1
     private val TYPE_FOOTER = 2
+
     private var currentLoadState = 2
+
     val LOADING = 1
     val LOADING_COMPLETE = 2
     val LOADING_END = 3
+
     fun setData(data: List<ProductWithoutPrice>?) {
-        if (data != null) {
+        data?.let {
             this.data.clear()
-            this.data.addAll(data)
+            this.data.addAll(it)
             notifyDataSetChanged()
         }
     }
@@ -33,8 +38,8 @@ class SearchResultAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == TYPE_ITEM) {
-            val view =
-                LayoutInflater.from(parent.context).inflate(R.layout.item_product, parent, false)
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.item_product, parent, false)
             SearchResultViewHolder(view)
         } else {
             val view = LayoutInflater.from(parent.context)

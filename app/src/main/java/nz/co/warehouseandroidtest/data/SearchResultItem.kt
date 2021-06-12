@@ -1,7 +1,14 @@
 package nz.co.warehouseandroidtest.data
 
-class SearchResultItem {
-    var Description: String? = null
-    @JvmField
-    var Products: List<ProductWithoutPrice>? = null
-}
+import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
+
+@Parcelize
+data class SearchResultItem(
+    @SerializedName("Description")
+    var Description: String?,
+    @SerializedName("Products")
+    var products: @RawValue List<ProductWithoutPrice>?
+) : Parcelable

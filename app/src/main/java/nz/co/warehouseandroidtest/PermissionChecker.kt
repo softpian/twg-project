@@ -16,7 +16,7 @@ class PermissionChecker(var context: Context) {
         return false
     }
 
-    fun ifLackPermission(permission: String?): Boolean {
+    private fun ifLackPermission(permission: String?): Boolean {
         return ContextCompat.checkSelfPermission(
             context,
             permission!!

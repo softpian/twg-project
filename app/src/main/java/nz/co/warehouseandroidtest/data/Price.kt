@@ -1,8 +1,13 @@
 package nz.co.warehouseandroidtest.data
 
-class Price {
-    @JvmField
-    var Price: String? = null
-    @JvmField
-    var Type: String? = null
-}
+import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+data class Price(
+    @SerializedName("Price")
+    var price: String?,
+    @SerializedName("Type")
+    var type: String?
+) : Parcelable

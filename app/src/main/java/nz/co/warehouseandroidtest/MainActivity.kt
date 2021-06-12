@@ -3,7 +3,6 @@ package nz.co.warehouseandroidtest
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,61 +13,78 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
-    var permissions = arrayOf(Manifest.permission.CAMERA)
-    var checker = PermissionChecker(this)
-    val REQUEST_PERMISSION_CODE = 0
-    private var tvScan: TextView? = null
-    private var tvSearch: TextView? = null
+
+    private val permissions = arrayOf(Manifest.permission.CAMERA)
+
+    private val checker = PermissionChecker(this)
+
+    private val REQUEST_PERMISSION_CODE = 0
+
+    private lateinit var tvScan: TextView
+    private lateinit var tvSearch: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        tvScan = findViewById<View>(R.id.tv_scan_barcode) as TextView
-        tvSearch = findViewById<View>(R.id.tv_search) as TextView
-        tvScan!!.setOnClickListener {
-            val intent = Intent()
-            intent.setClass(this@MainActivity, BarScanActivity::class.java)
-            startActivity(intent)
+
+        tvScan = findViewById(R.id.tv_scan_barcode)
+        tvSearch = findViewById(R.id.tv_search)
+
+        tvScan.setOnClickListener {
+            Intent(this@MainActivity, BarScanActivity::class.java).let {
+                startActivity(it)
+            }
         }
-        tvSearch!!.setOnClickListener {
-            val intent = Intent()
-            intent.setClass(this@MainActivity, SearchActivity::class.java)
-            startActivity(intent)
+
+        tvSearch.setOnClickListener {
+            Intent(this@MainActivity, SearchActivity::class.java).let {
+                startActivity(it)
+            }
         }
     }
 
-    public override fun onResume() {
+    override fun onResume() {
         super.onResume()
         if (checker.ifLackPermissions(permissions)) {
             PermissionActivity.startActivityForResult(this, REQUEST_PERMISSION_CODE, permissions)
         }
+
         if (PreferenceUtil.getUserId(this) == null) {
-            (applicationContext as WarehouseTestApp).warehouseService.getNewUserId()?.enqueue(object :
-                Callback<User?> {
+            (applicationContext as WarehouseTestApp).warehouseService.getNewUserId()?.enqueue(
+                object : Callback<User?> {
                 override fun onResponse(call: Call<User?>, response: Response<User?>) {
                     if (response.isSuccessful) {
                         val user = response.body()
-                        if (null != user && null != user.UserID) {
-                            PreferenceUtil.putUserId(this@MainActivity, user.UserID)
+                        user?.userID?.let {
+                            PreferenceUtil.putUserId(this@MainActivity, it)
                         }
                     } else {
-                        Toast.makeText(this@MainActivity, "Get User failed!", Toast.LENGTH_SHORT)
-                            .show()
+                        Toast.makeText(
+                            this@MainActivity,
+                            "Get User failed!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<User?>, t: Throwable) {
-                    Toast.makeText(this@MainActivity, "Get User failed!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Get User failed!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             })
         }
     }
 
-    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (RESULT_OK != resultCode) {
             return
         }
-        if (requestCode == REQUEST_PERMISSION_CODE && resultCode == PermissionActivity.PERMISSION_DENIED) {
+        if (requestCode == REQUEST_PERMISSION_CODE &&
+            resultCode == PermissionActivity.PERMISSION_DENIED) {
             finish()
         }
     }

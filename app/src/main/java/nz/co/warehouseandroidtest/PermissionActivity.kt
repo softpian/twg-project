@@ -42,6 +42,7 @@ class PermissionActivity : AppCompatActivity() {
         permissions: Array<String>,
         grantResults: IntArray
     ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (PERMISSION_REQUEST_CODE == requestCode && hasAllPermissionsGranted(grantResults)) {
             mIsRequiredPermissionCheck = true
             allPermissionsGranted()

@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder
 import com.uuzuche.lib_zxing.activity.ZXingLibrary
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -14,11 +15,15 @@ class WarehouseTestApp : Application() {
     override fun onCreate() {
         super.onCreate()
         val builder = OkHttpClient.Builder()
-        builder.addInterceptor(Interceptor { chain ->
-            val request = chain.request().newBuilder()
-                .addHeader("Ocp-Apim-Subscription-Key", Constants.SUBSCRIPTION_KEY).build()
-            chain.proceed(request)
-        })
+            .addInterceptor(Interceptor { chain ->
+                val request = chain.request().newBuilder()
+                    .addHeader("Ocp-Apim-Subscription-Key", Constants.SUBSCRIPTION_KEY).build()
+                chain.proceed(request)
+            })
+            .addNetworkInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
+
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.HTTP_URL_ENDPOINT)
             .client(builder.build())

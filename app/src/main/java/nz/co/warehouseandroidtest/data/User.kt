@@ -1,6 +1,10 @@
 package nz.co.warehouseandroidtest.data
 
-class User {
-    var ProdQAT: String? = null
-    var UserID: String? = null
-}
+import com.google.gson.annotations.SerializedName
+
+data class User(
+    @SerializedName("ProdQAT")
+    var prodQAT: String?,
+    @SerializedName("UserID")
+    var userID: String?
+)

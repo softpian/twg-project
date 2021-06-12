@@ -1,26 +1,46 @@
 package nz.co.warehouseandroidtest.data
 
-class Product {
-    var Class0: String? = null
-    @JvmField
-    var Price: Price? = null
-    @JvmField
-    var Barcode: String? = null
-    @JvmField
-    var ItemDescription: String? = null
-    var DeptID: String? = null
-    var SubClass: String? = null
-    var Class0ID: String? = null
-    var SubDeptID: String? = null
-    var Description: String? = null
-    var BranchPrice: String? = null
-    var ItemCode: String? = null
-    var SubDept: String? = null
-    var ClassID: String? = null
-    @JvmField
-    var ImageURL: String? = null
-    var Dept: String? = null
-    var SubClassID: String? = null
-    var Class: String? = null
-    var ProductKey: String? = null
-}
+import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
+import kotlinx.parcelize.Parcelize
+import kotlinx.parcelize.RawValue
+
+@Parcelize
+data class Product(
+    @SerializedName("Class0")
+    var class0: String?,
+    @SerializedName("Price")
+    var price: @RawValue Price?,
+    @SerializedName("Barcode")
+    var barcode: String?,
+    @SerializedName("ItemDescription")
+    var itemDescription: String?,
+    @SerializedName("DeptID")
+    var deptID: String?,
+    @SerializedName("SubClass")
+    var subClass: String?,
+    @SerializedName("Class0ID")
+    var class0ID: String?,
+    @SerializedName("SubDeptID")
+    var subDeptID: String?,
+    @SerializedName("Description")
+    var description: String?,
+    @SerializedName("BranchPrice")
+    var branchPrice: String?,
+    @SerializedName("ItemCode")
+    var itemCode: String?,
+    @SerializedName("SubDept")
+    var subDept: String?,
+    @SerializedName("ClassID")
+    var classID: String?,
+    @SerializedName("ImageURL")
+    var imageURL: String?,
+    @SerializedName("Dept")
+    var dept: String?,
+    @SerializedName("SubClassID")
+    var subClassID: String?,
+    @SerializedName("Class")
+    var classProduct: String?,
+    @SerializedName("ProductKey")
+    var productKey: String?,
+) : Parcelable

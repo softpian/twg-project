@@ -7,16 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class FooterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    @JvmField
-    var pbLoading: ProgressBar
-    @JvmField
-    var tvLoading: TextView
-    @JvmField
-    var llEnd: LinearLayout
-
-    init {
-        pbLoading = itemView.findViewById<View>(R.id.pb_loading) as ProgressBar
-        tvLoading = itemView.findViewById<View>(R.id.tv_loading) as TextView
-        llEnd = itemView.findViewById<View>(R.id.ll_end) as LinearLayout
-    }
+    val pbLoading: ProgressBar by lazy { itemView.findViewById(R.id.pb_loading) }
+    val tvLoading: TextView by lazy { itemView.findViewById(R.id.tv_loading) }
+    val llEnd: LinearLayout by lazy { itemView.findViewById(R.id.ll_end) }
 }

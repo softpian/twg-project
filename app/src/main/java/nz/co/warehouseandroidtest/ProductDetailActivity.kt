@@ -15,41 +15,55 @@ import retrofit2.Response
 import java.util.*
 
 class ProductDetailActivity : AppCompatActivity() {
-    private var ivProduct: ImageView? = null
-    private var tvProduct: TextView? = null
-    private var ivClearance: ImageView? = null
-    private var tvPrice: TextView? = null
-    private var tvBarcode: TextView? = null
+
+    companion object {
+        const val FLAG_INTENT_SOURCE_SCAN = 10001
+        const val FLAG_INTENT_SOURCE_SEARCH = 10002
+        const val FLAG_BAR_CODE = "barCode"
+        const val FLAG_INTENT_SOURCE = "intentSource"
+    }
+
+    private lateinit var ivProduct: ImageView
+    private lateinit var tvProduct: TextView
+    private lateinit var ivClearance: ImageView
+    private lateinit var tvPrice: TextView
+    private lateinit var tvBarcode: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
-        ivProduct = findViewById<View>(R.id.iv_product) as ImageView
-        tvProduct = findViewById<View>(R.id.tv_product) as TextView
-        ivClearance = findViewById<View>(R.id.iv_clearance) as ImageView
-        tvPrice = findViewById<View>(R.id.tv_price) as TextView
-        tvBarcode = findViewById<View>(R.id.tv_barcode) as TextView
+
+        ivProduct = findViewById(R.id.iv_product)
+        tvProduct = findViewById(R.id.tv_product)
+        ivClearance = findViewById(R.id.iv_clearance)
+        tvPrice = findViewById(R.id.tv_price)
+        tvBarcode = findViewById(R.id.tv_barcode)
+
         val barCode = intent.extras.getString(FLAG_BAR_CODE)
+
         val paramMap = HashMap<String, String>()
         paramMap["BarCode"] = barCode
         paramMap["MachineID"] = Constants.MACHINE_ID
-        paramMap["UserID"] = getUserId(this)
+        paramMap["UserID"] = getUserId(this) ?: ""
         paramMap["Branch"] = Constants.BRANCH_ID.toString()
+
         (applicationContext as WarehouseTestApp).warehouseService.getProductDetail(paramMap)
             .enqueue(object : Callback<ProductDetail> {
                 override fun onResponse(call: Call<ProductDetail>, response: Response<ProductDetail>) {
                     if (response.isSuccessful) {
                         val productDetail = response.body() as ProductDetail?
                         Glide.with(this@ProductDetailActivity)
-                            .load(productDetail!!.Product!!.ImageURL).into(
-                                ivProduct!!
+                            .load(productDetail!!.product!!.imageURL).into(
+                                ivProduct
                             )
-                        tvProduct!!.text = productDetail.Product!!.ItemDescription
-                        tvPrice!!.text = "$" + productDetail.Product!!.Price!!.Price
-                        tvBarcode!!.text = productDetail.Product!!.Barcode
-                        if (productDetail.Product!!.Price!!.Type == "CLR") {
-                            ivClearance!!.visibility = View.VISIBLE
+                        tvProduct.text = productDetail.product!!.itemDescription
+                        tvPrice.text = "$" + productDetail.product!!.price!!.price
+                        tvBarcode.text = productDetail.product!!.barcode
+
+                        if (productDetail.product!!.price!!.type == "CLR") {
+                            ivClearance.visibility = View.VISIBLE
                         } else {
-                            ivClearance!!.visibility = View.GONE
+                            ivClearance.visibility = View.GONE
                         }
                     } else {
                         Toast.makeText(
@@ -68,12 +82,5 @@ class ProductDetailActivity : AppCompatActivity() {
                     ).show()
                 }
             })
-    }
-
-    companion object {
-        const val FLAG_INTENT_SOURCE_SCAN = 10001
-        const val FLAG_INTENT_SOURCE_SEARCH = 10002
-        const val FLAG_BAR_CODE = "barCode"
-        const val FLAG_INTENT_SOURCE = "intentSource"
     }
 }

@@ -12,26 +12,27 @@ import nz.co.warehouseandroidtest.data.ProductWithoutPrice
 class SearchResultViewHolder(private val mItemView: View) : RecyclerView.ViewHolder(
     mItemView
 ) {
-    private val mIvProduct: ImageView
-    private val mTvProductName: TextView
+    private val mIvProduct: ImageView by lazy { mItemView.findViewById(R.id.iv_product) }
+    private val mTvProductName: TextView by lazy { mItemView.findViewById(R.id.tv_product_name) }
+
     fun bind(product: ProductWithoutPrice?) {
         if (product == null) return
-        if (!TextUtils.isEmpty(product.Description)) {
-            mTvProductName.text = product.Description
+        if (!TextUtils.isEmpty(product.description)) {
+            mTvProductName.text = product.description
         }
-        if (!TextUtils.isEmpty(product.ImageURL)) {
-            Glide.with(mIvProduct.context).load(product.ImageURL).into(mIvProduct)
+        if (!TextUtils.isEmpty(product.imageURL)) {
+            Glide.with(mIvProduct.context).load(product.imageURL).into(mIvProduct)
         }
         mItemView.setOnClickListener {
             val intent = Intent()
             intent.setClass(mItemView.context, ProductDetailActivity::class.java)
-            intent.putExtra(ProductDetailActivity.FLAG_BAR_CODE, product.Barcode)
+            intent.putExtra(ProductDetailActivity.FLAG_BAR_CODE, product.barcode)
             mItemView.context.startActivity(intent)
         }
     }
 
-    init {
-        mIvProduct = mItemView.findViewById(R.id.iv_product)
-        mTvProductName = mItemView.findViewById(R.id.tv_product_name)
-    }
+//    init {
+//        mIvProduct = mItemView.findViewById(R.id.iv_product)
+//        mTvProductName = mItemView.findViewById(R.id.tv_product_name)
+//    }
 }
