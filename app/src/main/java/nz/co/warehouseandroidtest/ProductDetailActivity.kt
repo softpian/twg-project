@@ -45,7 +45,7 @@ class ProductDetailActivity : AppCompatActivity() {
         paramMap["BarCode"] = barCode
         paramMap["MachineID"] = Constants.MACHINE_ID
         paramMap["UserID"] = getUserId(this) ?: ""
-        paramMap["Branch"] = Constants.BRANCH_ID.toString()
+        paramMap["Branch"] = "${Constants.BRANCH_ID}"
 
         (applicationContext as WarehouseTestApp).warehouseService.getProductDetail(paramMap)
             .enqueue(object : Callback<ProductDetail> {
