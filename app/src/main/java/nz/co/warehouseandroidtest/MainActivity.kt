@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
             PermissionActivity.startActivityForResult(this, REQUEST_PERMISSION_CODE, permissions)
         }
         if (PreferenceUtil.getUserId(this) == null) {
-            (applicationContext as WarehouseTestApp).warehouseService.newUserId.enqueue(object :
+            (applicationContext as WarehouseTestApp).warehouseService.getNewUserId()?.enqueue(object :
                 Callback<User?> {
                 override fun onResponse(call: Call<User?>, response: Response<User?>) {
                     if (response.isSuccessful) {
