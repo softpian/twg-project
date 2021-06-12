@@ -1,4 +1,4 @@
-package nz.co.warehouseandroidtest
+package nz.co.warehouseandroidtest.ui.main
 
 import android.content.Context
 import android.content.pm.PackageManager

@@ -1,7 +1,6 @@
-package nz.co.warehouseandroidtest.Utils
+package nz.co.warehouseandroidtest.utils
 
 import android.content.Context
-import nz.co.warehouseandroidtest.Constants
 
 object PreferenceUtil {
     @JvmStatic

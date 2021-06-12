@@ -1,4 +1,4 @@
-package nz.co.warehouseandroidtest
+package nz.co.warehouseandroidtest.ui.search
 
 import android.content.Intent
 import android.text.TextUtils
@@ -7,7 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import nz.co.warehouseandroidtest.data.ProductWithoutPrice
+import nz.co.warehouseandroidtest.ui.detail.ProductDetailActivity
+import nz.co.warehouseandroidtest.R
+import nz.co.warehouseandroidtest.models.ProductWithoutPrice
 
 class SearchResultViewHolder(private val mItemView: View) : RecyclerView.ViewHolder(
     mItemView

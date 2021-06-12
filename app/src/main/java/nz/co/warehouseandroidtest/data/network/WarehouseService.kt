@@ -1,8 +1,8 @@
-package nz.co.warehouseandroidtest
+package nz.co.warehouseandroidtest.data.network
 
-import nz.co.warehouseandroidtest.data.ProductDetail
-import nz.co.warehouseandroidtest.data.SearchResult
-import nz.co.warehouseandroidtest.data.User
+import nz.co.warehouseandroidtest.models.ProductDetail
+import nz.co.warehouseandroidtest.models.SearchResult
+import nz.co.warehouseandroidtest.models.User
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.QueryMap

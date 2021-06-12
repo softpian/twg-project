@@ -1,4 +1,6 @@
-package nz.co.warehouseandroidtest
+package nz.co.warehouseandroidtest.utils
+
+import nz.co.warehouseandroidtest.BuildConfig
 
 object Constants {
     const val HTTP_URL_ENDPOINT = "https://twg.azure-api.net/"

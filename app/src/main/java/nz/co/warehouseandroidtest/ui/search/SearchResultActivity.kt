@@ -1,4 +1,4 @@
-package nz.co.warehouseandroidtest
+package nz.co.warehouseandroidtest.ui.search
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -9,10 +9,12 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import nz.co.warehouseandroidtest.SearchResultActivity
-import nz.co.warehouseandroidtest.Utils.PreferenceUtil.getUserId
-import nz.co.warehouseandroidtest.data.ProductWithoutPrice
-import nz.co.warehouseandroidtest.data.SearchResult
+import nz.co.warehouseandroidtest.R
+import nz.co.warehouseandroidtest.WarehouseTestApp
+import nz.co.warehouseandroidtest.utils.PreferenceUtil.getUserId
+import nz.co.warehouseandroidtest.models.ProductWithoutPrice
+import nz.co.warehouseandroidtest.models.SearchResult
+import nz.co.warehouseandroidtest.utils.Constants
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

@@ -1,16 +1,13 @@
-package nz.co.warehouseandroidtest.data
+package nz.co.warehouseandroidtest.models
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-import kotlinx.parcelize.RawValue
 
 @Parcelize
-data class Product(
-    @SerializedName("Class0")
+data class ProductWithoutPrice(
+    @SerializedName("class0")
     var class0: String?,
-    @SerializedName("Price")
-    var price: @RawValue Price?,
     @SerializedName("Barcode")
     var barcode: String?,
     @SerializedName("ItemDescription")
@@ -19,14 +16,10 @@ data class Product(
     var deptID: String?,
     @SerializedName("SubClass")
     var subClass: String?,
-    @SerializedName("Class0ID")
-    var class0ID: String?,
     @SerializedName("SubDeptID")
     var subDeptID: String?,
     @SerializedName("Description")
     var description: String?,
-    @SerializedName("BranchPrice")
-    var branchPrice: String?,
     @SerializedName("ItemCode")
     var itemCode: String?,
     @SerializedName("SubDept")
@@ -40,7 +33,7 @@ data class Product(
     @SerializedName("SubClassID")
     var subClassID: String?,
     @SerializedName("Class")
-    var classProduct: String?,
+    var classProductWithoutPrice: String?,
     @SerializedName("ProductKey")
-    var productKey: String?,
+    var productKey: String?
 ) : Parcelable

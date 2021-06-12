@@ -3,6 +3,8 @@ package nz.co.warehouseandroidtest
 import android.app.Application
 import com.google.gson.GsonBuilder
 import com.uuzuche.lib_zxing.activity.ZXingLibrary
+import nz.co.warehouseandroidtest.data.network.WarehouseService
+import nz.co.warehouseandroidtest.utils.Constants
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

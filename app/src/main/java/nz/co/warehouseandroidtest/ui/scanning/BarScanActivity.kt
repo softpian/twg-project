@@ -1,15 +1,16 @@
-package nz.co.warehouseandroidtest
+package nz.co.warehouseandroidtest.ui.scanning
 
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.uuzuche.lib_zxing.activity.CaptureFragment
 import com.uuzuche.lib_zxing.activity.CodeUtils
 import com.uuzuche.lib_zxing.activity.CodeUtils.AnalyzeCallback
+import nz.co.warehouseandroidtest.ui.detail.ProductDetailActivity
+import nz.co.warehouseandroidtest.R
 
 class BarScanActivity : AppCompatActivity() {
 

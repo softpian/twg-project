@@ -18,7 +18,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,22 +27,22 @@
         </activity>
 
         <activity
-            android:name=".BarScanActivity"
+            android:name=".ui.scanning.BarScanActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ProductDetailActivity"
+            android:name=".ui.detail.ProductDetailActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".SearchActivity"
+            android:name=".ui.search.SearchActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".SearchResultActivity"
+            android:name=".ui.search.SearchResultActivity"
             android:screenOrientation="portrait" />
 
-        <activity android:name=".PermissionActivity"
+        <activity android:name=".ui.main.PermissionActivity"
             android:screenOrientation="portrait"/>
 
     </application>

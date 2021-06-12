@@ -1,4 +1,4 @@
-package nz.co.warehouseandroidtest
+package nz.co.warehouseandroidtest.ui.detail
 
 import android.os.Bundle
 import android.view.View
@@ -7,8 +7,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import nz.co.warehouseandroidtest.Utils.PreferenceUtil.getUserId
-import nz.co.warehouseandroidtest.data.ProductDetail
+import nz.co.warehouseandroidtest.R
+import nz.co.warehouseandroidtest.WarehouseTestApp
+import nz.co.warehouseandroidtest.utils.PreferenceUtil.getUserId
+import nz.co.warehouseandroidtest.models.ProductDetail
+import nz.co.warehouseandroidtest.utils.Constants
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

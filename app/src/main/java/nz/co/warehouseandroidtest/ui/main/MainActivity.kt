@@ -1,4 +1,4 @@
-package nz.co.warehouseandroidtest
+package nz.co.warehouseandroidtest.ui.main
 
 import android.Manifest
 import android.content.Intent
@@ -6,8 +6,11 @@ import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import nz.co.warehouseandroidtest.Utils.PreferenceUtil
-import nz.co.warehouseandroidtest.data.User
+import nz.co.warehouseandroidtest.*
+import nz.co.warehouseandroidtest.utils.PreferenceUtil
+import nz.co.warehouseandroidtest.models.User
+import nz.co.warehouseandroidtest.ui.scanning.BarScanActivity
+import nz.co.warehouseandroidtest.ui.search.SearchActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -84,7 +87,8 @@ class MainActivity : AppCompatActivity() {
             return
         }
         if (requestCode == REQUEST_PERMISSION_CODE &&
-            resultCode == PermissionActivity.PERMISSION_DENIED) {
+            resultCode == PermissionActivity.PERMISSION_DENIED
+        ) {
             finish()
         }
     }

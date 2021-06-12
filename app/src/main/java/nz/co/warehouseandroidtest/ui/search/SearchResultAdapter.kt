@@ -1,10 +1,11 @@
-package nz.co.warehouseandroidtest
+package nz.co.warehouseandroidtest.ui.search
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import nz.co.warehouseandroidtest.data.ProductWithoutPrice
+import nz.co.warehouseandroidtest.R
+import nz.co.warehouseandroidtest.models.ProductWithoutPrice
 import java.util.*
 
 class SearchResultAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {

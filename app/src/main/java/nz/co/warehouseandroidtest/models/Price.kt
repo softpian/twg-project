@@ -1,4 +1,4 @@
-package nz.co.warehouseandroidtest.data
+package nz.co.warehouseandroidtest.models
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

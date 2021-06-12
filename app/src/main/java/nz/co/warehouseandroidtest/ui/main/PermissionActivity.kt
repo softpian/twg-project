@@ -1,4 +1,4 @@
-package nz.co.warehouseandroidtest
+package nz.co.warehouseandroidtest.ui.main
 
 import android.app.Activity
 import android.content.Intent
@@ -9,6 +9,7 @@ import android.provider.Settings
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import nz.co.warehouseandroidtest.R
 
 class PermissionActivity : AppCompatActivity() {
     val PACKAGE_URL_SCHEME = "package:"
