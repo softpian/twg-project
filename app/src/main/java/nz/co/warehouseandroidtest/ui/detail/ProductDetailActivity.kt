@@ -1,7 +1,6 @@
 package nz.co.warehouseandroidtest.ui.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -10,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.parcelize.RawValue
 import nz.co.warehouseandroidtest.R
 import nz.co.warehouseandroidtest.models.Product
 import nz.co.warehouseandroidtest.utils.Constants
@@ -122,6 +120,5 @@ class ProductDetailActivity : AppCompatActivity() {
         } else {
             ivClearance.visibility = View.GONE
         }
-        Log.d("HJM", "tvItemDescription.text : ${tvItemDescription.text}")
     }
 }
