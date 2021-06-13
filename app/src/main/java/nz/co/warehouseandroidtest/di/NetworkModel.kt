@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import nz.co.warehouseandroidtest.BuildConfig
 import nz.co.warehouseandroidtest.data.network.WarehouseService
 import nz.co.warehouseandroidtest.utils.Constants
 import okhttp3.Interceptor
@@ -39,10 +40,16 @@ object NetworkModel {
         interceptor: Interceptor,
         networkInterceptor: HttpLoggingInterceptor
     ): OkHttpClient
-        = OkHttpClient.Builder()
-            .addInterceptor(interceptor)
-            .addNetworkInterceptor(networkInterceptor)
-            .build()
+        = if (BuildConfig.IS_DEBUG) {
+            OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .addNetworkInterceptor(networkInterceptor)
+                .build()
+        } else {
+            OkHttpClient.Builder()
+                .addInterceptor(interceptor)
+                .build()
+        }
 
 
     @Singleton

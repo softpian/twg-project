@@ -4,7 +4,6 @@ plugins {
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
-
 }
 
 android {
@@ -21,11 +20,13 @@ android {
     buildTypes {
         debug {
             buildConfigField "String", "SUBSCRIPTION_KEY", rootProject.ext.subscriptionKey
+            buildConfigField "boolean", "IS_DEBUG", "true"
         }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "SUBSCRIPTION_KEY", rootProject.ext.subscriptionKey
+            buildConfigField "boolean", "IS_DEBUG", "false"
         }
     }
     compileOptions {
