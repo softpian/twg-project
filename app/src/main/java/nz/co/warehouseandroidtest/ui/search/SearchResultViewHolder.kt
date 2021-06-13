@@ -2,7 +2,6 @@ package nz.co.warehouseandroidtest.ui.search
 
 import android.content.Intent
 import android.text.TextUtils
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -16,7 +15,7 @@ class SearchResultViewHolder(private val mItemView: View)
     : RecyclerView.ViewHolder(mItemView)
 {
     private val mIvProduct: ImageView by lazy { mItemView.findViewById(R.id.product_imageView) }
-    private val mTvProductName: TextView by lazy { mItemView.findViewById(R.id.name_textView) }
+    private val mTvProductName: TextView by lazy { mItemView.findViewById(R.id.description_textView) }
     private val mTvClass: TextView by lazy { mItemView.findViewById(R.id.class_textView) }
     private val mTvSubClass: TextView by lazy { mItemView.findViewById(R.id.subClass_textView) }
     private val mTvDept: TextView by lazy { mItemView.findViewById(R.id.dept_textView) }

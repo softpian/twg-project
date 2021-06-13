@@ -1,6 +1,7 @@
 package nz.co.warehouseandroidtest.ui.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -31,6 +32,12 @@ class ProductDetailActivity : AppCompatActivity() {
     private lateinit var ivClearance: ImageView
     private lateinit var tvPrice: TextView
     private lateinit var tvBarcode: TextView
+    private lateinit var tvClass0: TextView
+    private lateinit var tvClass: TextView
+    private lateinit var tvSubClass: TextView
+    private lateinit var tvDept: TextView
+    private lateinit var tvSubDept: TextView
+    private lateinit var tvItemDescription: TextView
 
     private lateinit var viewModel: ProductDetailActivityViewModel
 
@@ -39,11 +46,18 @@ class ProductDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_product_detail)
         viewModel = ViewModelProvider(this)[ProductDetailActivityViewModel::class.java]
 
-        ivProduct = findViewById(R.id.iv_product)
-        tvProduct = findViewById(R.id.tv_product)
-        ivClearance = findViewById(R.id.iv_clearance)
-        tvPrice = findViewById(R.id.tv_price)
-        tvBarcode = findViewById(R.id.tv_barcode)
+        ivProduct = findViewById(R.id.product_imageView)
+        tvProduct = findViewById(R.id.description_textView)
+        ivClearance = findViewById(R.id.clearance_imageView)
+        tvPrice = findViewById(R.id.price_textView)
+        tvBarcode = findViewById(R.id.barcode_value_textView)
+        tvClass0 = findViewById(R.id.class0_textView)
+        tvClass = findViewById(R.id.class_textView)
+        tvSubClass = findViewById(R.id.subClass_textView)
+        tvDept = findViewById(R.id.dept_textView)
+        tvSubDept = findViewById(R.id.subDept_textView)
+        tvItemDescription = findViewById(R.id.itemDescription_textView)
+
 
         val barCode = intent.extras.getString(FLAG_BAR_CODE)
 
@@ -66,10 +80,8 @@ class ProductDetailActivity : AppCompatActivity() {
                             Glide.with(this@ProductDetailActivity)
                                 .load(product.imageURL)
                                 .placeholder(R.mipmap.ic_pic_place_holder)
-                                .into(
-                                    ivProduct
-                                )
-                            tvProduct.text = product.itemDescription
+                                .into(ivProduct)
+                            tvProduct.text = product.description ?: "n/a"
                             val price = product.price?.price ?: "0"
                             tvPrice.text = "\$$price"
                             tvBarcode.text = product.barcode
@@ -79,6 +91,17 @@ class ProductDetailActivity : AppCompatActivity() {
                             } else {
                                 ivClearance.visibility = View.GONE
                             }
+                            tvClass0.text = product.class0 ?: "n/a"
+                            tvClass.text = product.classProduct ?: "n/a"
+                            tvSubClass.text = product.subClass ?: "n/a"
+                            tvDept.text = product.dept ?: "n/a"
+                            tvSubDept.text = product.subDept ?: "n/a"
+                            if (product.itemDescription.isNullOrEmpty()) {
+                                tvItemDescription.text = tvProduct.text
+                            } else {
+                                tvItemDescription.text = product.itemDescription
+                            }
+                            Log.d("HJM", "tvItemDescription.text : ${tvItemDescription.text }")
                         }
                     }
                 }
