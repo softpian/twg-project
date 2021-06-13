@@ -6,38 +6,74 @@
     android:layout_height="match_parent"
     tools:context=".ui.main.MainActivity">
 
-    <TextView
-        android:id="@+id/tv_scan_barcode"
-        android:layout_width="wrap_content"
-        android:layout_height="44dp"
-        android:gravity="center"
-        android:drawablePadding="5dp"
-        android:textSize="17sp"
-        android:drawableStart="@drawable/selector_scan"
-        android:drawableLeft="@drawable/selector_scan"
-        android:text="Scan"
+    <ImageView
+        android:id="@+id/logo_imageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.45" />
+        app:layout_constraintVertical_bias="0.13999999"
+        app:srcCompat="@drawable/twg_logo" />
+
+    <ImageView
+        android:id="@+id/barCodeScan_imageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="90dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_imageView"
+        app:srcCompat="@drawable/ic_qr_code_scanner" />
+
+    <ImageView
+        android:id="@+id/search_imageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/barCodeScan_imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="@+id/barCodeScan_imageView"
+        app:srcCompat="@drawable/ic_search" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
 
     <TextView
-        android:id="@+id/tv_search"
+        android:id="@+id/barCodeScan_textView"
         android:layout_width="wrap_content"
-        android:layout_height="44dp"
-        android:gravity="center"
-        android:drawablePadding="5dp"
-        android:textSize="17sp"
-        android:drawableStart="@mipmap/ic_magnify"
-        android:drawableLeft="@mipmap/ic_magnify"
-        android:text="Search"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tv_scan_barcode"
-        app:layout_constraintVertical_bias="0.20" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Press to scan Barcode"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/barCodeScan_imageView"
+        app:layout_constraintStart_toStartOf="@+id/barCodeScan_imageView"
+        app:layout_constraintTop_toBottomOf="@+id/barCodeScan_imageView" />
 
+    <TextView
+        android:id="@+id/search_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Search product"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/search_imageView"
+        app:layout_constraintStart_toStartOf="@+id/search_imageView"
+        app:layout_constraintTop_toBottomOf="@+id/search_imageView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

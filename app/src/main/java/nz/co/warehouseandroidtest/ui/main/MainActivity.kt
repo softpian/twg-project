@@ -3,7 +3,7 @@ package nz.co.warehouseandroidtest.ui.main
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
-import android.widget.TextView
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -24,8 +24,8 @@ class MainActivity : AppCompatActivity() {
 
     private val REQUEST_PERMISSION_CODE = 0
 
-    private lateinit var tvScan: TextView
-    private lateinit var tvSearch: TextView
+    private lateinit var barCodeScan: ImageView
+    private lateinit var search: ImageView
 
     private lateinit var viewModel: MainActivityViewModel
 
@@ -34,16 +34,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
 
-        tvScan = findViewById(R.id.tv_scan_barcode)
-        tvSearch = findViewById(R.id.tv_search)
+        barCodeScan = findViewById(R.id.barCodeScan_imageView)
+        search = findViewById(R.id.search_imageView)
 
-        tvScan.setOnClickListener {
+        barCodeScan.setOnClickListener {
             Intent(this@MainActivity, BarScanActivity::class.java).let {
                 startActivity(it)
             }
         }
 
-        tvSearch.setOnClickListener {
+        search.setOnClickListener {
             Intent(this@MainActivity, SearchActivity::class.java).let {
                 startActivity(it)
             }
