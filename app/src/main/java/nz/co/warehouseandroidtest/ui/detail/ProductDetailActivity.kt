@@ -64,11 +64,12 @@ class ProductDetailActivity : AppCompatActivity() {
                     response.data?.let { productDetail ->
                         productDetail.product?.let { product ->
                             Glide.with(this@ProductDetailActivity)
-                                .load(product.imageURL).into(
+                                .load(product.imageURL)
+                                .placeholder(R.mipmap.ic_pic_place_holder)
+                                .into(
                                     ivProduct
                                 )
                             tvProduct.text = product.itemDescription
-                            //tvPrice.text = "$" + product.price!!.price
                             val price = product.price?.price ?: "0"
                             tvPrice.text = "\$$price"
                             tvBarcode.text = product.barcode

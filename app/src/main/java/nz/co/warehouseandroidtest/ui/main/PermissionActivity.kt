@@ -86,7 +86,7 @@ class PermissionActivity : AppCompatActivity() {
     }
 
     fun requestPermissions(permissions: Array<String>) {
-        ActivityCompat.requestPermissions(this, permissions!!, PERMISSION_REQUEST_CODE)
+        ActivityCompat.requestPermissions(this, permissions, PERMISSION_REQUEST_CODE)
     }
 
     val permissions: Array<String>
@@ -97,14 +97,14 @@ class PermissionActivity : AppCompatActivity() {
         var PERMISSION_DENIED = 1
         const val PERMISSION_EXTRA_FLAG = "nz.co.warehouseandroidtest.permission.extra_permission"
         fun startActivityForResult(
-            activity: Activity?,
+            activity: Activity,
             requestCode: Int,
             permissions: Array<String>
         ) {
-            val intent = Intent()
-            intent.setClass(activity, PermissionActivity::class.java)
-            intent.putExtra(PERMISSION_EXTRA_FLAG, permissions)
-            ActivityCompat.startActivityForResult(activity!!, intent, requestCode, null)
+            Intent(activity, PermissionActivity::class.java).apply {
+                putExtra(PERMISSION_EXTRA_FLAG, permissions)
+                ActivityCompat.startActivityForResult(activity, this, requestCode, null)
+            }
         }
     }
 }

@@ -6,15 +6,29 @@
 
     <color name="common_border_line">#dddddd</color>
     <color name="colorBackground">#999999</color>
-    <color name="colorHint">#FFFFFF</color>
-    <color name="colorEditText">#FFFFFF</color>
+    <color name="colorHint">@color/white</color>
+    <color name="colorEditText">@color/white</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="red">#FFFF0000</color>
+    <color name="darkGray">#5C5C5C</color>
+    <color name="darkGrayForPlaceHolder">#55777777</color>
+    <color name="darker">#191919</color>
+    <color name="orange">#FF9800</color>
 
     <color name="lightRed">#FFAA0000</color>
     <color name="mediumRed">#FF770000</color>
     <color name="progressBar">#FFFF1111</color>
+    <color name="lightMediumGray">#70B7B7B7</color>
+
     <color name="light_blue_600">#FF039BE5</color>
     <color name="light_blue_900">#FF01579B</color>
     <color name="light_blue_A200">#FF40C4FF</color>
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
+
+    // Custom CardView Style
+    <color name="cardViewBackgroundColor">@color/white</color>
+    <color name="strokeColor">@color/lightMediumGray</color>
+
 </resources>

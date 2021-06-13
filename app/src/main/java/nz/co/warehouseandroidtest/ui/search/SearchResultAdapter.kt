@@ -5,12 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import nz.co.warehouseandroidtest.R
-import nz.co.warehouseandroidtest.models.ProductWithoutPrice
+import nz.co.warehouseandroidtest.models.SearchResultItem
 import java.util.*
 
 class SearchResultAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private val data: MutableList<ProductWithoutPrice> = ArrayList()
+    private val searchResultItem: MutableList<SearchResultItem> = ArrayList()
 
     private val TYPE_ITEM = 1
     private val TYPE_FOOTER = 2
@@ -21,10 +21,10 @@ class SearchResultAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val LOADING_COMPLETE = 2
     val LOADING_END = 3
 
-    fun setData(data: List<ProductWithoutPrice>?) {
-        data?.let {
-            this.data.clear()
-            this.data.addAll(it)
+    fun setSearchResultItem(searchResultItem: List<SearchResultItem>?) {
+        searchResultItem?.let {
+            this.searchResultItem.clear()
+            this.searchResultItem.addAll(it)
             notifyDataSetChanged()
         }
     }
@@ -40,7 +40,7 @@ class SearchResultAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return if (viewType == TYPE_ITEM) {
             val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.item_product, parent, false)
+                .inflate(R.layout.item_row_layout, parent, false)
             SearchResultViewHolder(view)
         } else {
             val view = LayoutInflater.from(parent.context)
@@ -51,7 +51,7 @@ class SearchResultAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is SearchResultViewHolder) {
-            holder.bind(data[position])
+            holder.bind(searchResultItem[position])
         } else if (holder is FooterViewHolder) {
             val footerViewHolder = holder
             when (currentLoadState) {
@@ -77,7 +77,7 @@ class SearchResultAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return data.size + 1
+        return searchResultItem.size + 1
     }
 
     fun setLoadState(loadState: Int) {

@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ProductWithoutPrice(
-    @SerializedName("class0")
+    @SerializedName("Class0")
     var class0: String?,
     @SerializedName("Barcode")
     var barcode: String?,
