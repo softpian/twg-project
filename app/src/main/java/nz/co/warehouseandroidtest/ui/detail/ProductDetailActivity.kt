@@ -10,7 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.parcelize.RawValue
 import nz.co.warehouseandroidtest.R
+import nz.co.warehouseandroidtest.models.Product
 import nz.co.warehouseandroidtest.utils.Constants
 import nz.co.warehouseandroidtest.utils.NetworkResult
 import nz.co.warehouseandroidtest.utils.PreferenceUtil.getUserId
@@ -77,31 +79,7 @@ class ProductDetailActivity : AppCompatActivity() {
                 is NetworkResult.Success -> {
                     response.data?.let { productDetail ->
                         productDetail.product?.let { product ->
-                            Glide.with(this@ProductDetailActivity)
-                                .load(product.imageURL)
-                                .placeholder(R.mipmap.ic_pic_place_holder)
-                                .into(ivProduct)
-                            tvProduct.text = product.description ?: "n/a"
-                            val price = product.price?.price ?: "0"
-                            tvPrice.text = "\$$price"
-                            tvBarcode.text = product.barcode
-                            val type = product.price?.type ?: ""
-                            if (type == "CLR") {
-                                ivClearance.visibility = View.VISIBLE
-                            } else {
-                                ivClearance.visibility = View.GONE
-                            }
-                            tvClass0.text = product.class0 ?: "n/a"
-                            tvClass.text = product.classProduct ?: "n/a"
-                            tvSubClass.text = product.subClass ?: "n/a"
-                            tvDept.text = product.dept ?: "n/a"
-                            tvSubDept.text = product.subDept ?: "n/a"
-                            if (product.itemDescription.isNullOrEmpty()) {
-                                tvItemDescription.text = tvProduct.text
-                            } else {
-                                tvItemDescription.text = product.itemDescription
-                            }
-                            Log.d("HJM", "tvItemDescription.text : ${tvItemDescription.text }")
+                            bind(product)
                         }
                     }
                 }
@@ -115,5 +93,35 @@ class ProductDetailActivity : AppCompatActivity() {
                 is NetworkResult.Loading -> {}
             }
         }
+    }
+
+    private fun bind(product: Product) {
+
+        Glide.with(this@ProductDetailActivity)
+            .load(product.imageURL)
+            .placeholder(R.mipmap.ic_pic_place_holder)
+            .into(ivProduct)
+
+        tvProduct.text = product.description ?: "n/a"
+        val price = product.price?.price ?: "0"
+        tvPrice.text = "\$$price"
+        tvBarcode.text = product.barcode
+        tvClass0.text = product.class0 ?: "n/a"
+        tvClass.text = product.classProduct ?: "n/a"
+        tvSubClass.text = product.subClass ?: "n/a"
+        tvDept.text = product.dept ?: "n/a"
+        tvSubDept.text = product.subDept ?: "n/a"
+        if (product.itemDescription.isNullOrEmpty()) {
+            tvItemDescription.text = tvProduct.text
+        } else {
+            tvItemDescription.text = product.itemDescription
+        }
+        val type = product.price?.type ?: ""
+        if (type == "CLR") {
+            ivClearance.visibility = View.VISIBLE
+        } else {
+            ivClearance.visibility = View.GONE
+        }
+        Log.d("HJM", "tvItemDescription.text : ${tvItemDescription.text}")
     }
 }
