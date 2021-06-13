@@ -32,9 +32,4 @@ class SearchResultViewHolder(private val mItemView: View) : RecyclerView.ViewHol
             mItemView.context.startActivity(intent)
         }
     }
-
-//    init {
-//        mIvProduct = mItemView.findViewById(R.id.iv_product)
-//        mTvProductName = mItemView.findViewById(R.id.tv_product_name)
-//    }
 }

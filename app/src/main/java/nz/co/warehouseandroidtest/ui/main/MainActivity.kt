@@ -6,15 +6,16 @@ import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import dagger.hilt.android.AndroidEntryPoint
 import nz.co.warehouseandroidtest.*
-import nz.co.warehouseandroidtest.utils.PreferenceUtil
-import nz.co.warehouseandroidtest.models.User
 import nz.co.warehouseandroidtest.ui.scanning.BarScanActivity
 import nz.co.warehouseandroidtest.ui.search.SearchActivity
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import nz.co.warehouseandroidtest.utils.NetworkResult
+import nz.co.warehouseandroidtest.utils.PreferenceUtil
+import nz.co.warehouseandroidtest.viewmodels.MainActivityViewModel
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val permissions = arrayOf(Manifest.permission.CAMERA)
@@ -26,9 +27,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tvScan: TextView
     private lateinit var tvSearch: TextView
 
+    private lateinit var viewModel: MainActivityViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        viewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
 
         tvScan = findViewById(R.id.tv_scan_barcode)
         tvSearch = findViewById(R.id.tv_search)
@@ -52,32 +56,31 @@ class MainActivity : AppCompatActivity() {
             PermissionActivity.startActivityForResult(this, REQUEST_PERMISSION_CODE, permissions)
         }
 
+        getNewUserId()
+    }
+
+    private fun getNewUserId() {
         if (PreferenceUtil.getUserId(this) == null) {
-            (applicationContext as WarehouseTestApp).warehouseService.getNewUserId()?.enqueue(
-                object : Callback<User?> {
-                override fun onResponse(call: Call<User?>, response: Response<User?>) {
-                    if (response.isSuccessful) {
-                        val user = response.body()
-                        user?.userID?.let {
-                            PreferenceUtil.putUserId(this@MainActivity, it)
+            viewModel.getNewUserId()
+            viewModel.userResponse.observe(this) { response ->
+                when (response) {
+                    is NetworkResult.Success -> {
+                        response.data?.let { user ->
+                            user.userID?.let { userId ->
+                                PreferenceUtil.putUserId(this@MainActivity, userId)
+                            }
                         }
-                    } else {
+                    }
+                    is NetworkResult.Error -> {
                         Toast.makeText(
                             this@MainActivity,
                             "Get User failed!",
                             Toast.LENGTH_SHORT
                         ).show()
                     }
+                    is NetworkResult.Loading -> {}
                 }
-
-                override fun onFailure(call: Call<User?>, t: Throwable) {
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Get User failed!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            })
+            }
         }
     }
 

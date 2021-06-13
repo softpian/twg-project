@@ -3,7 +3,6 @@ package nz.co.warehouseandroidtest.utils
 import android.content.Context
 
 object PreferenceUtil {
-    @JvmStatic
     fun getUserId(context: Context): String? {
         val sharedPreferences =
             context.getSharedPreferences(Constants.PREF_USER_ID, Context.MODE_PRIVATE)

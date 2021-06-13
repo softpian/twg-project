@@ -5,21 +5,21 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import dagger.hilt.android.AndroidEntryPoint
 import nz.co.warehouseandroidtest.R
-import nz.co.warehouseandroidtest.WarehouseTestApp
-import nz.co.warehouseandroidtest.utils.PreferenceUtil.getUserId
 import nz.co.warehouseandroidtest.models.ProductWithoutPrice
-import nz.co.warehouseandroidtest.models.SearchResult
 import nz.co.warehouseandroidtest.utils.Constants
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import nz.co.warehouseandroidtest.utils.NetworkResult
+import nz.co.warehouseandroidtest.utils.PreferenceUtil.getUserId
+import nz.co.warehouseandroidtest.viewmodels.SearchResultActivityViewModel
 import java.util.*
 
+@AndroidEntryPoint
 class SearchResultActivity : AppCompatActivity() {
 
     companion object {
@@ -36,9 +36,12 @@ class SearchResultActivity : AppCompatActivity() {
     private var totalItemNum: String? = null
     private var startIndex = 0
 
+    private lateinit var viewModel: SearchResultActivityViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_result)
+        viewModel = ViewModelProvider(this)[SearchResultActivityViewModel::class.java]
 
         swipeRefreshLayout = findViewById(R.id.refresh_layout)
         swipeRefreshLayout.setOnRefreshListener {
@@ -90,43 +93,40 @@ class SearchResultActivity : AppCompatActivity() {
         paramsMap["Start"] = startIndex.toString()
         paramsMap["Limit"] = itemsPerPage.toString()
 
-        (applicationContext as WarehouseTestApp).warehouseService.getSearchResult(paramsMap)
-            .enqueue(object : Callback<SearchResult> {
-                override fun onResponse(call: Call<SearchResult>, response: Response<SearchResult>) {
-                    if (response.isSuccessful) {
-                        val searchResult = response.body()
-                        searchResult?.let {
-                            val ifFound = it.found
-                            if (ifFound == "Y") {
-                                totalItemNum = it.hitCount
-                                this@SearchResultActivity.startIndex += 20
-                                it.results?.let { results ->
-                                    for (item in results) {
-                                        item.products?.let { products ->
-                                            data.add(products[0])
-                                        }
+        getSearchResult(paramsMap)
+    }
+
+    private fun getSearchResult(paramMap: Map<String, String>) {
+        viewModel.getSearchResult(paramMap)
+        viewModel.searchResultResponse.observe(this) { response ->
+            when (response) {
+                is NetworkResult.Success -> {
+                    response.data?.let { searchResult ->
+                        val ifFound = searchResult.found
+                        if (ifFound == "Y") {
+                            totalItemNum = searchResult.hitCount
+                            this@SearchResultActivity.startIndex += 20
+                            searchResult.results?.let { results ->
+                                for (item in results) {
+                                    item.products?.let { products ->
+                                        data.add(products[0])
                                     }
                                 }
-                                searchResultAdapter.setData(data)
-                                searchResultAdapter.setLoadState(searchResultAdapter.LOADING_COMPLETE)
                             }
+                            searchResultAdapter.setData(data)
+                            searchResultAdapter.setLoadState(searchResultAdapter.LOADING_COMPLETE)
                         }
-                    } else {
-                        Toast.makeText(
-                            this@SearchResultActivity,
-                            "Search failed!",
-                            Toast.LENGTH_LONG
-                        ).show()
                     }
                 }
-
-                override fun onFailure(call: Call<SearchResult>, t: Throwable) {
+                is NetworkResult.Error -> {
                     Toast.makeText(
                         this@SearchResultActivity,
                         "Search failed!",
                         Toast.LENGTH_LONG
                     ).show()
                 }
-            })
+                is NetworkResult.Loading -> {}
+            }
+        }
     }
 }

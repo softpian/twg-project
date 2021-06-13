@@ -6,17 +6,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import dagger.hilt.android.AndroidEntryPoint
 import nz.co.warehouseandroidtest.R
-import nz.co.warehouseandroidtest.WarehouseTestApp
-import nz.co.warehouseandroidtest.utils.PreferenceUtil.getUserId
-import nz.co.warehouseandroidtest.models.ProductDetail
 import nz.co.warehouseandroidtest.utils.Constants
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import nz.co.warehouseandroidtest.utils.NetworkResult
+import nz.co.warehouseandroidtest.utils.PreferenceUtil.getUserId
+import nz.co.warehouseandroidtest.viewmodels.ProductDetailActivityViewModel
 import java.util.*
 
+@AndroidEntryPoint
 class ProductDetailActivity : AppCompatActivity() {
 
     companion object {
@@ -32,9 +32,12 @@ class ProductDetailActivity : AppCompatActivity() {
     private lateinit var tvPrice: TextView
     private lateinit var tvBarcode: TextView
 
+    private lateinit var viewModel: ProductDetailActivityViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_product_detail)
+        viewModel = ViewModelProvider(this)[ProductDetailActivityViewModel::class.java]
 
         ivProduct = findViewById(R.id.iv_product)
         tvProduct = findViewById(R.id.tv_product)
@@ -50,40 +53,43 @@ class ProductDetailActivity : AppCompatActivity() {
         paramMap["UserID"] = getUserId(this) ?: ""
         paramMap["Branch"] = "${Constants.BRANCH_ID}"
 
-        (applicationContext as WarehouseTestApp).warehouseService.getProductDetail(paramMap)
-            .enqueue(object : Callback<ProductDetail> {
-                override fun onResponse(call: Call<ProductDetail>, response: Response<ProductDetail>) {
-                    if (response.isSuccessful) {
-                        val productDetail = response.body() as ProductDetail?
-                        Glide.with(this@ProductDetailActivity)
-                            .load(productDetail!!.product!!.imageURL).into(
-                                ivProduct
-                            )
-                        tvProduct.text = productDetail.product!!.itemDescription
-                        tvPrice.text = "$" + productDetail.product!!.price!!.price
-                        tvBarcode.text = productDetail.product!!.barcode
+        getProductDetail(paramMap)
+    }
 
-                        if (productDetail.product!!.price!!.type == "CLR") {
-                            ivClearance.visibility = View.VISIBLE
-                        } else {
-                            ivClearance.visibility = View.GONE
+    private fun getProductDetail(paramMap: HashMap<String, String>) {
+        viewModel.getProductDetail(paramMap)
+        viewModel.productDetailResponse.observe(this) { response ->
+            when (response) {
+                is NetworkResult.Success -> {
+                    response.data?.let { productDetail ->
+                        productDetail.product?.let { product ->
+                            Glide.with(this@ProductDetailActivity)
+                                .load(product.imageURL).into(
+                                    ivProduct
+                                )
+                            tvProduct.text = product.itemDescription
+                            //tvPrice.text = "$" + product.price!!.price
+                            val price = product.price?.price ?: "0"
+                            tvPrice.text = "\$$price"
+                            tvBarcode.text = product.barcode
+                            val type = product.price?.type ?: ""
+                            if (type == "CLR") {
+                                ivClearance.visibility = View.VISIBLE
+                            } else {
+                                ivClearance.visibility = View.GONE
+                            }
                         }
-                    } else {
-                        Toast.makeText(
-                            this@ProductDetailActivity,
-                            "Get product detail failed!",
-                            Toast.LENGTH_SHORT
-                        ).show()
                     }
                 }
-
-                override fun onFailure(call: Call<ProductDetail>, t: Throwable) {
+                is NetworkResult.Error -> {
                     Toast.makeText(
                         this@ProductDetailActivity,
                         "Get product detail failed!",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-            })
+                is NetworkResult.Loading -> {}
+            }
+        }
     }
 }
