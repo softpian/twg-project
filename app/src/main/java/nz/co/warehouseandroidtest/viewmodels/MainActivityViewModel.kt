@@ -1,5 +1,6 @@
 package nz.co.warehouseandroidtest.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,7 +17,9 @@ class MainActivityViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
-    val userResponse: MutableLiveData<NetworkResult<User>> = MutableLiveData()
+    private val _userResponse: MutableLiveData<NetworkResult<User>> = MutableLiveData()
+    val userResponse: LiveData<NetworkResult<User>>
+        get() = _userResponse
 
     fun getNewUserId()
         = viewModelScope.launch {
@@ -24,8 +27,8 @@ class MainActivityViewModel @Inject constructor(
         }
 
     suspend fun getNewUserIdSafeCall() {
-        userResponse.value = NetworkResult.Loading()
+        _userResponse.value = NetworkResult.Loading()
         val response = repository.remote.getNewUserId()
-        userResponse.value = ResponseUtil.handleResponse(response)
+        _userResponse.value = ResponseUtil.handleResponse(response)
     }
 }

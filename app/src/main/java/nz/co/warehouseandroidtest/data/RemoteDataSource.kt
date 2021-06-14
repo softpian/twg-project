@@ -8,18 +8,26 @@ import retrofit2.Response
 import java.util.*
 import javax.inject.Inject
 
-class RemoteDataSource @Inject constructor(
-    private val warehouseService: WarehouseService
-) {
-    suspend fun getNewUserId(): Response<User> {
-        return warehouseService.getNewUserId()
-    }
+interface RemoteDataSource {
+    suspend fun getNewUserId(): Response<User>
 
-    suspend fun getProductDetail(paramMap: HashMap<String, String>): Response<ProductDetail> {
-        return warehouseService.getProductDetail(paramMap)
-    }
+    suspend fun getProductDetail(paramMap: HashMap<String, String>): Response<ProductDetail>
 
-    suspend fun getSearchResult(paramMap: Map<String, String>): Response<SearchResult> {
-        return warehouseService.getSearchResult(paramMap)
-    }
+    suspend fun getSearchResult(paramMap: Map<String, String>): Response<SearchResult>
 }
+
+//class RemoteDataSource @Inject constructor(
+//    private val warehouseService: WarehouseService
+//) {
+//    suspend fun getNewUserId(): Response<User> {
+//        return warehouseService.getNewUserId()
+//    }
+//
+//    suspend fun getProductDetail(paramMap: HashMap<String, String>): Response<ProductDetail> {
+//        return warehouseService.getProductDetail(paramMap)
+//    }
+//
+//    suspend fun getSearchResult(paramMap: Map<String, String>): Response<SearchResult> {
+//        return warehouseService.getSearchResult(paramMap)
+//    }
+//}

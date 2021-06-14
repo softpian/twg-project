@@ -1,5 +1,6 @@
 package nz.co.warehouseandroidtest.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,7 +17,9 @@ class SearchResultActivityViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
-    val searchResultResponse: MutableLiveData<NetworkResult<SearchResult>> = MutableLiveData()
+    private val _searchResultResponse: MutableLiveData<NetworkResult<SearchResult>> = MutableLiveData()
+    val searchResultResponse: LiveData<NetworkResult<SearchResult>>
+        get() = _searchResultResponse
 
     fun getSearchResult(paramMap: Map<String, String>)
         = viewModelScope.launch {
@@ -24,8 +27,8 @@ class SearchResultActivityViewModel @Inject constructor(
         }
 
     suspend fun getSearchResultSafeCall(paramMap: Map<String, String>) {
-        searchResultResponse.value = NetworkResult.Loading()
+        _searchResultResponse.value = NetworkResult.Loading()
         val response = repository.remote.getSearchResult(paramMap)
-        searchResultResponse.value = ResponseUtil.handleResponse(response)
+        _searchResultResponse.value = ResponseUtil.handleResponse(response)
     }
 }

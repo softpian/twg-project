@@ -1,5 +1,6 @@
 package nz.co.warehouseandroidtest.viewmodels
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,7 +18,10 @@ class ProductDetailActivityViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
-    val productDetailResponse: MutableLiveData<NetworkResult<ProductDetail>> = MutableLiveData()
+    private val _productDetailResponse: MutableLiveData<NetworkResult<ProductDetail>> = MutableLiveData()
+    val productDetailResponse: LiveData<NetworkResult<ProductDetail>>
+        get() = _productDetailResponse
+
 
     fun getProductDetail(paramMap: HashMap<String, String>)
         = viewModelScope.launch {
@@ -25,8 +29,8 @@ class ProductDetailActivityViewModel @Inject constructor(
         }
 
     suspend fun getProductDetailSafeCall(paramMap: HashMap<String, String>) {
-        productDetailResponse.value = NetworkResult.Loading()
+        _productDetailResponse.value = NetworkResult.Loading()
         val response = repository.remote.getProductDetail(paramMap)
-        productDetailResponse.value = ResponseUtil.handleResponse(response)
+        _productDetailResponse.value = ResponseUtil.handleResponse(response)
     }
 }

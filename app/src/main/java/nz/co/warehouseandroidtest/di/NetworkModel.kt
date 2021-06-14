@@ -5,6 +5,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import nz.co.warehouseandroidtest.BuildConfig
+import nz.co.warehouseandroidtest.data.RemoteDataSource
+import nz.co.warehouseandroidtest.data.RemoteDataSourceImpl
 import nz.co.warehouseandroidtest.data.network.WarehouseService
 import nz.co.warehouseandroidtest.utils.Constants
 import okhttp3.Interceptor
@@ -73,4 +75,9 @@ object NetworkModel {
     @Provides
     fun provideWarehouseService(retrofit: Retrofit): WarehouseService
         = retrofit.create(WarehouseService::class.java)
+
+    @Singleton
+    @Provides
+    fun provideRemoteDataSource(warehouseService: WarehouseService): RemoteDataSource
+        = RemoteDataSourceImpl(warehouseService) as RemoteDataSource
 }
