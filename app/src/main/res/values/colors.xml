@@ -37,4 +37,6 @@
     <color name="tabIndicatorColor">@color/lightGreen</color>
     <color name="tabTextColor">@color/colorBackground</color>
 
+    <color name="searchIconColor">@color/lightGreen</color>
+
 </resources>
