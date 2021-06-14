@@ -2,6 +2,7 @@ package nz.co.warehouseandroidtest.ui.search
 
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -29,6 +30,8 @@ class SearchResultActivity : AppCompatActivity() {
     private lateinit var searchResultTextView: TextView
     private lateinit var recyclerView: RecyclerView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var notFoundOrErrorImageView: ImageView
+    private lateinit var notFoundOrErrorTextView: TextView
 
     private val searchResultAdapter: SearchResultAdapter by lazy { SearchResultAdapter() }
 
@@ -42,6 +45,11 @@ class SearchResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_result)
         viewModel = ViewModelProvider(this)[SearchResultActivityViewModel::class.java]
+
+        notFoundOrErrorImageView = findViewById(R.id.notFoundOrError_imageView)
+        notFoundOrErrorImageView.visibility = View.INVISIBLE
+        notFoundOrErrorTextView = findViewById(R.id.notFoundOrError_textView)
+        notFoundOrErrorTextView.visibility = View.INVISIBLE
 
         searchResultTextView = findViewById(R.id.searchResult_textView);
         swipeRefreshLayout = findViewById(R.id.refresh_layout)
@@ -94,6 +102,8 @@ class SearchResultActivity : AppCompatActivity() {
         viewModel.searchResultResponse.observe(this) { response ->
             when (response) {
                 is NetworkResult.Success -> {
+                    notFoundOrErrorImageView.visibility = View.INVISIBLE
+                    notFoundOrErrorTextView.visibility = View.INVISIBLE
                     recyclerView.visibility = View.VISIBLE
                     swipeRefreshLayout.isRefreshing = false
                     response.data?.let { searchResult ->
@@ -107,15 +117,23 @@ class SearchResultActivity : AppCompatActivity() {
                             }
                             searchResultAdapter.setLoadState(searchResultAdapter.LOADING_COMPLETE)
                         } else if (ifFound == "N") {
+                            notFoundOrErrorImageView.setImageResource(R.drawable.ic_not_found)
+                            notFoundOrErrorImageView.visibility = View.VISIBLE
+                            notFoundOrErrorTextView.text = getString(R.string.not_found)
+                            notFoundOrErrorTextView.visibility = View.VISIBLE
                             Toast.makeText(
                                 this@SearchResultActivity,
-                                "Sorry, product not found with the keyword..",
+                                "Sorry, Product not found with the keyword..Can you please search with other keywords?",
                                 Toast.LENGTH_LONG
                             ).show()
                         }
                     }
                 }
                 is NetworkResult.Error -> {
+                    notFoundOrErrorImageView.setImageResource(R.drawable.ic_error)
+                    notFoundOrErrorImageView.visibility = View.VISIBLE
+                    notFoundOrErrorTextView.text = getString(R.string.network_error)
+                    notFoundOrErrorTextView.visibility = View.VISIBLE
                     recyclerView.visibility = View.INVISIBLE
                     swipeRefreshLayout.isRefreshing = false
                     Toast.makeText(
@@ -125,6 +143,8 @@ class SearchResultActivity : AppCompatActivity() {
                     ).show()
                 }
                 is NetworkResult.Loading -> {
+                    notFoundOrErrorImageView.visibility = View.INVISIBLE
+                    notFoundOrErrorTextView.visibility = View.INVISIBLE
                     recyclerView.visibility = View.INVISIBLE
                     swipeRefreshLayout.isRefreshing = true
                 }
