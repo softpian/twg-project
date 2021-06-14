@@ -52,7 +52,7 @@
         android:layout_marginTop="10dp"
         android:fontFamily="@font/archivo_black"
         android:gravity="center"
-        android:text="Search The Warehouse"
+        android:text="@string/search_the_warehouse"
         android:textColor="@color/darkGray"
         android:textSize="17sp"
         android:textStyle="bold" />

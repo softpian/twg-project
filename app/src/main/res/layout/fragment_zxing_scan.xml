@@ -41,7 +41,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="60dp"
         android:gravity="center"
-        android:text="Position barcode inside window below"
+        android:text="@string/position_barcode_inside_window_below"
         android:textColor="@android:color/white"
         android:textSize="17sp"
         android:textStyle="bold" />

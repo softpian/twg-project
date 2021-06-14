@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@color/lightRed"
         android:padding="15dp"
-        android:text="Product Details"
+        android:text="@string/product_details"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"

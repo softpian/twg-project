@@ -7,4 +7,16 @@
     <string name="at_vero_eos">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</string>
     <string name="not_found">Not found</string>
     <string name="network_error">Network error</string>
+    <string name="position_barcode_inside_window_below">Position barcode inside window below</string>
+    <string name="press_to_scan_barcode">Press to scan Barcode</string>
+    <string name="search_product">Search product</string>
+    <string name="product_details">Product Details</string>
+    <string name="search_the_warehouse">Search The Warehouse</string>
+    <string name="more_information">More information</string>
+    <string name="_150">150</string>
+    <string name="reviews">Reviews</string>
+    <string name="there_is_no_more">There is no more</string>
+    <string name="loading">Loading...</string>
+    <string name="barcode">Barcode:</string>
+    <string name="_120">120</string>
 </resources>
