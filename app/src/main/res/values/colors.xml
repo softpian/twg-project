@@ -33,4 +33,8 @@
     <color name="cardViewBackgroundColor">@color/white</color>
     <color name="strokeColor">@color/lightMediumGray</color>
 
+    <color name="tabBackgroundColor">@color/colorPrimary</color>
+    <color name="tabIndicatorColor">@color/lightGreen</color>
+    <color name="tabTextColor">@color/colorBackground</color>
+
 </resources>
