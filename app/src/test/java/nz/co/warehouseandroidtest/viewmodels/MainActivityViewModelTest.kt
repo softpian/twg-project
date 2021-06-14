@@ -2,7 +2,6 @@ package nz.co.warehouseandroidtest.viewmodels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.common.truth.Truth.assertThat
-import kotlinx.coroutines.test.runBlockingTest
 import nz.co.warehouseandroidtest.data.FakeRemoteDataSource
 import nz.co.warehouseandroidtest.data.Repository
 import nz.co.warehouseandroidtest.utils.Constants

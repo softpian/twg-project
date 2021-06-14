@@ -1,7 +1,6 @@
 package nz.co.warehouseandroidtest.ui.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,7 +17,7 @@ import nz.co.warehouseandroidtest.utils.Constants
 import nz.co.warehouseandroidtest.utils.NetworkResult
 import nz.co.warehouseandroidtest.utils.PreferenceUtil
 import nz.co.warehouseandroidtest.viewmodels.ProductDetailActivityViewModel
-import java.util.HashMap
+import java.util.*
 
 private const val ARG_PARAM_BAR_CODE = "barCode"
 

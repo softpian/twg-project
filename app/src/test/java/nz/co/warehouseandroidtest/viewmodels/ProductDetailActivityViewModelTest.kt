@@ -10,7 +10,7 @@ import nz.co.warehouseandroidtest.utils.getOrAwaitValue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.util.HashMap
+import java.util.*
 
 class ProductDetailActivityViewModelTest {
 

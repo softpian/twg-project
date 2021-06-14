@@ -53,7 +53,6 @@ object NetworkModel {
                 .build()
         }
 
-
     @Singleton
     @Provides
     fun provideConverterFactory(): GsonConverterFactory

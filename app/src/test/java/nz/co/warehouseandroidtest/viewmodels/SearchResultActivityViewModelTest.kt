@@ -6,12 +6,11 @@ import nz.co.warehouseandroidtest.data.FakeRemoteDataSource
 import nz.co.warehouseandroidtest.data.Repository
 import nz.co.warehouseandroidtest.utils.Constants
 import nz.co.warehouseandroidtest.utils.MainCoroutineRule
-import nz.co.warehouseandroidtest.utils.PreferenceUtil
 import nz.co.warehouseandroidtest.utils.getOrAwaitValue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.util.HashMap
+import java.util.*
 
 class SearchResultActivityViewModelTest {
 

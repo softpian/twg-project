@@ -1,6 +1,5 @@
 package nz.co.warehouseandroidtest.utils
 
-import nz.co.warehouseandroidtest.BuildConfig
 import nz.co.warehouseandroidtest.models.*
 
 object Constants {
