@@ -106,6 +106,12 @@ class SearchResultActivity : AppCompatActivity() {
                                 searchResultAdapter.setSearchResultItem(it)
                             }
                             searchResultAdapter.setLoadState(searchResultAdapter.LOADING_COMPLETE)
+                        } else if (ifFound == "N") {
+                            Toast.makeText(
+                                this@SearchResultActivity,
+                                "Sorry, product not found with the keyword..",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
                     }
                 }
